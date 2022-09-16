@@ -11,6 +11,7 @@ def main():
 
 def generate_url_for_question(question):
     url = f'https://8ball.delegator.com/magic/JSON/{question}'
+    print(url)
     return url
 
 
@@ -23,6 +24,8 @@ def make_request_to_magic_8_ball(url):
 
 
 def extract_answer_from_response(response):
+
+
     """
     The response is a dictionary in the form
 
@@ -37,11 +40,18 @@ def extract_answer_from_response(response):
     This function returns the answer value from the nested dictionary.
     """
 
+    if response[0] == 'magic':
+        if response[0][0] == 'question' and response[0][1] == 'answer' and response[0][2] == 'type':
+            answer = response['magic']['answer']
+            return answer
+    else: 
+        return None
+
+
     # TODO what would happen if the response dictionary was not in the expected form?
     # TODO can you modify this function to print an error message, and return None
     #   if the response dictionary is not in this structure? 
-    answer = response['magic']['answer']
-    return answer
+
 
 
 if __name__ == '__main__':
